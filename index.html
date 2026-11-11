@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -42,7 +43,7 @@
     </label>
   </div>
 
-  <!-- Boutons de filtres (Chips) avec une vraie forme -->
+  
  <div id="filterButtons" role="group" aria-label="Filtrer par type" class="flex flex-wrap gap-3 p-4">
   <button type="button" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20260428/pngtree-vibrant-digital-wave-with-glowing-blue-and-purple-lines-particles-on-image_21759545.webp')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">All</button>
   <button type="button" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp_ECPM-l1lkIiqILQYqdw9ioSOw-DY9YhODcnc4vFpg&s=10')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Feu</button>
@@ -92,10 +93,9 @@
     <span id="team-counter" class="text-sm font-bold text-muted bg-gray-100 px-3 py-1 rounded-full"></span>
   </div>
 
-  <!-- Message de règles -->
   <p class="text-xs text-muted">Sélectionnez jusqu'à 6 créatures pour constituer votre équipe de combat.</p>
 
-  <!-- Grille des 6 emplacements (vides ou remplis) -->
+  <!-- Grille des 6 emplacements -->
   <div id="team-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
     <!-- Les 6 emplacements vides par défaut -->
     <div class="team-slot flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold">Emplacement vide</div>
@@ -157,9 +157,9 @@
         <div class="flex flex-wrap justify-end gap-3 md:col-span-2 lg:col-span-4">
           <button type="reset" class="btn-outline px-6">Effacer</button>
           <button type="submit" class="btn-primary">Ajouter la créature</button>
-          <!-- Section où s'afficheront les créatures -->
+       
      <div id="creatures-container" class="grid grid-cols-1 gap-4 md:grid-cols-3 mt-8">
-     <!-- Les cartes des créatures s'ajouteront ici dynamiquement -->
+    
      </div>
         </div>
       </form>
@@ -168,11 +168,12 @@
   </main>
 
   <footer class="mx-auto max-w-7xl px-8 pb-10 text-sm text-muted">
-    Images : [source des images de votre univers]. Projet de fans réalisé dans le cadre d'une formation.
+   
   </footer>
 
   <!-- data.js (à créer) doit être chargé AVANT script.js -->
   <script src="./data.js"></script>
   <script src="./script.js" defer></script>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

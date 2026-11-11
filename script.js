@@ -1,10 +1,6 @@
 // =============================================================
 // script.js — Mon Dex
 // =============================================================
-// Les données viennent de data.js (la constante `creatures`).
-// -------------------------------------------------------------
-
-// Conteneurs principaux du DOM
 const grid = document.getElementById("grid");
 const creaturesContainer = document.getElementById("grid");
 const teamContainer = document.getElementById('team-container');
@@ -12,15 +8,15 @@ const teamCounter = document.getElementById('team-count');
 
 // Tableaux de données
 let creaturesList = [...creatures]; // Initialisé avec les données de data.js
-let teamList = [];                  // Tableau stockant les créatures de l'équipe (max 6)
+let teamList = [];                  
 
 
 // -------------------------------------------------------------
-// 1. AFFICHAGE DES CRÉATURES
+//  AFFICHAGE DES CRÉATURES
 // -------------------------------------------------------------
 function afficherCreatures(liste) {
     if (!grid) return;
-    grid.innerHTML = "";
+    grid.innerHTML = ""
 
     liste.forEach(function (creature) {
         const carte = document.createElement("article");
@@ -31,6 +27,7 @@ function afficherCreatures(liste) {
         if (isInTeam) {
             carte.classList.add('in-team');
         }
+
 
         carte.innerHTML = `
             <img src="${creature.image}" alt="${creature.name}" class="h-40 w-full object-cover rounded-lg">
@@ -63,8 +60,8 @@ afficherCreatures(creaturesList);
 
 
 // -------------------------------------------------------------
-// 2. DÉTAIL
-// -------------------------------------------------------------
+// DÉTAIL
+ // -------------------------------------------------------------
 const detail = document.getElementById("detail");
 const closeDetail = document.getElementById("closeDetail");
 
@@ -95,7 +92,7 @@ if (closeDetail && detail) {
 
 
 // -------------------------------------------------------------
-// 3. RECHERCHE ET FILTRES (Conservés tels quels)
+//  RECHERCHE ET FILTRES
 // -------------------------------------------------------------
 function filtrerCreatures() {
     afficherCreatures(creatures);
@@ -149,10 +146,12 @@ searchCreatures();
 
 
 // -------------------------------------------------------------
-// 5. CRÉER UNE CRÉATURE
+// CRÉER UNE CRÉATURE
 // -------------------------------------------------------------
 const form = document.getElementById('creature-form');
 const inputs = form ? form.querySelectorAll('input, select, textarea') : [];
+
+
 
 const rules = {
     id: {
@@ -211,6 +210,8 @@ function validateField(inputElement) {
 
     if (fieldName === 'id') {
         const isFormatValid = rule.regex.test(fieldValue);
+
+
         const isAlreadyUsed = creaturesList.some(creature => creature.id === fieldValue);
         if (!isFormatValid || isAlreadyUsed) isValid = false;
     }
@@ -285,7 +286,7 @@ if (form) {
 
 
 // -------------------------------------------------------------
-// 6. MON ÉQUIPE & RÈGLES (Anti-doublons, Max 6, Délégation)
+//  MON ÉQUIPE & RÈGLES 
 // -------------------------------------------------------------
 
 // 1. Écouteur unique sur la grille principale
@@ -309,7 +310,7 @@ if (creaturesContainer) {
                 alert("Votre équipe est complète (6/6 maximum) !");
                 return;
             }
-            // Règle : Pas de doublon (sécurité supplémentaire)
+            // Règle : Pas de doublon 
             if (teamList.some(c => c.id === creature.id)) {
                 alert("Cette créature est déjà dans votre équipe !");
                 return;
@@ -359,6 +360,7 @@ function renderTeam() {
     if (teamCounter) {
         teamCounter.textContent = teamList.length;
     }
+
 
     if (!teamContainer) return;
     teamContainer.innerHTML = '';
