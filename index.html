@@ -54,12 +54,10 @@
   <button type="button" style="background-image: url('https://miro.medium.com/v2/resize:fit:1400/0*0sbQp6wYl00j34O1')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Normal</button>
 </div>
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8 lg:items-start">
-
-      <!-- ===================== GRILLE DES CRÉATURES ===================== -->
-      <section id="grid" aria-label="Créatures" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-6">
-      </section>                                  
-
     
+      <!-- ===================== GRILLE DES CRÉATURES ===================== -->
+      <section id="grid" aria-label="Créatures" class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-6">
+      </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
         <!-- ===================== PANNEAU DE DÉTAIL ===================== -->
         <section id="detail" class="hidden flex flex-col gap-4 rounded-card border-2 border-ink bg-white p-6">
@@ -171,9 +169,10 @@
    
   </footer>
 
-  <!-- data.js (à créer) doit être chargé AVANT script.js -->
-  <script src="./data.js"></script>
+
+  
   <script src="./script.js" defer></script>
   <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./src/services/api.js"></script>
 </body>
 </html>

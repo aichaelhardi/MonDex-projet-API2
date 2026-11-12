@@ -7,14 +7,14 @@ const teamContainer = document.getElementById('team-container');
 const teamCounter = document.getElementById('team-count');
 
 // Tableaux de données
-let creaturesList = [...creatures]; // Initialisé avec les données de data.js
-let teamList = [];                  
+let creaturesList = [];
+let teamList = [];
 
 
 // -------------------------------------------------------------
 //  AFFICHAGE DES CRÉATURES
 // -------------------------------------------------------------
-function afficherCreatures(liste) {
+export function afficherCreatures(liste) {
     if (!grid) return;
     grid.innerHTML = ""
 
@@ -33,7 +33,7 @@ function afficherCreatures(liste) {
             <img src="${creature.image}" alt="${creature.name}" class="h-40 w-full object-cover rounded-lg">
             <div class="flex justify-between items-center">
                 <span class="text-xs font-bold text-muted">${creature.id}</span>
-                <span class="px-2 py-1 text-xs font-bold rounded bg-gray-100">${creature.type}</span>
+                <span class="px-2 py-1 text-xs font-bold rounded bg-gray-100">${creature.type.join(" , ")}</span>
             </div>
             <h3 class="font-display text-xl font-bold">${creature.name}</h3>
             
@@ -56,12 +56,12 @@ function afficherCreatures(liste) {
     });
 }
 
-afficherCreatures(creaturesList);
+
 
 
 // -------------------------------------------------------------
 // DÉTAIL
- // -------------------------------------------------------------
+// -------------------------------------------------------------
 const detail = document.getElementById("detail");
 const closeDetail = document.getElementById("closeDetail");
 
@@ -74,13 +74,13 @@ function showDetail(creature) {
     document.getElementById("detail-level").textContent = "Niveau: " + creature.level;
     document.getElementById("detail-image").src = creature.image;
     document.getElementById("detail-description").textContent = creature.description;
-    
-    if(creature.stats) {
+
+    if (creature.stats) {
         document.getElementById("detail-hp").textContent = creature.stats.hp;
         document.getElementById("detail-attack").textContent = creature.stats.attack;
         document.getElementById("detail-defence").textContent = creature.stats.defence;
     }
-    
+
     detail.classList.remove("hidden");
 }
 
@@ -94,8 +94,9 @@ if (closeDetail && detail) {
 // -------------------------------------------------------------
 //  RECHERCHE ET FILTRES
 // -------------------------------------------------------------
+
 function filtrerCreatures() {
-    afficherCreatures(creatures);
+    afficherCreatures(creaturesList);
     const filterdiv = document.querySelector("#filterButtons")
     if (!filterdiv) return;
 
@@ -104,15 +105,15 @@ function filtrerCreatures() {
         if (!btn) return;
         const nametype = btn.textContent.toLowerCase().trim()
         if (nametype === 'all') {
-            afficherCreatures(creatures);
+            afficherCreatures(creaturesList);
             return
         }
         else {
-            const resultats = creatures.filter((c) => c.type.toLowerCase().trim() === nametype)
+            const resultats = creaturesList.filter((c) => c.type.toLowerCase().trim() === nametype)
             afficherCreatures(resultats);
         }
     });
-} 
+}
 filtrerCreatures();
 
 function searchCreatures() {
@@ -122,15 +123,15 @@ function searchCreatures() {
     searchInput.addEventListener("input", function () {
         const searchValue = searchInput.value.toLowerCase().trim();
         let filteredCreatures = [];
-        
+
         if (searchValue !== "") {
-            creatures.forEach((c) => {
+            creaturesList.forEach((c) => {
                 if (c.name.toLowerCase().trim().includes(searchValue))
                     filteredCreatures.push(c)
             })
             afficherCreatures(filteredCreatures)
         } else {
-            afficherCreatures(creatures);
+            afficherCreatures(creaturesList);
         }
 
         const filterButtons = document.querySelectorAll('#filterButtons button');
@@ -141,7 +142,7 @@ function searchCreatures() {
             });
         });
     });
-}; 
+};
 searchCreatures();
 
 
@@ -372,9 +373,9 @@ function renderTeam() {
             const filledSlot = document.createElement('div');
             filledSlot.className = "team-filled-slot relative flex flex-col items-center justify-between p-3 h-36 bg-white border-2 border-blue-500 rounded-xl shadow-md cursor-pointer group transition hover:border-red-500";
             filledSlot.dataset.id = creature.id;
-            
+
             filledSlot.innerHTML = `
-                <span class="absolute top-1 left-2 text-[10px] font-bold text-gray-400">#0${i+1}</span>
+                <span class="absolute top-1 left-2 text-[10px] font-bold text-gray-400">#0${i + 1}</span>
                 <img src="${creature.image}" alt="${creature.name}" class="w-12 h-12 object-cover rounded-lg mt-2">
                 <span class="text-xs font-bold text-gray-800 truncate w-full text-center">${creature.name}</span>
                 <span class="text-[10px] bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">Retirer</span>
@@ -383,7 +384,7 @@ function renderTeam() {
         } else {
             const emptySlot = document.createElement('div');
             emptySlot.className = "team-slot flex flex-col items-center justify-center h-36 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold bg-gray-50/50";
-            emptySlot.innerHTML = `<span class="text-gray-300 font-bold mb-1">0${i+1}</span> Emplacement`;
+            emptySlot.innerHTML = `<span class="text-gray-300 font-bold mb-1">0${i + 1}</span> Emplacement`;
             teamContainer.appendChild(emptySlot);
         }
     }
