@@ -4,20 +4,19 @@ module.exports = {
   theme: {
     extend: {
       
-      colors: {
-        brand: {
-          
-           DEFAULT: "hsl(63, 96%, 59%)",
-             dark: "#fb9518",
-            light: "#E5E7EB",
+      
+colors: {
+  brand: {
+    DEFAULT: "#fb9518",
+    dark: "#fb9518",
+    light: "#E5E7EB",
+  },
+  ink: "#14171D",
+  muted: "#545B68",
+  ground: "#EDEFF3",
+  line: "rgb(225, 221, 213)",
+},
 
-        },
-        ink: "#14171D",
-        muted: "#545B68",
-        ground: "#EDEFF3",
-        line: "rgb(225, 221, 213)",
-        
-      },
       fontFamily: {
         display: ["Arial", "sans-serif"],
         body: ["Arial", "sans-serif"],
