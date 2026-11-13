@@ -1,14 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./script.js", "./data.js"],
+  content: ["./index.html", "./src/main.js", "./src/ui.js" , "./src/storage.js" , "./src/services/api.js"],
   theme: {
     extend: {
-      // Thème NEUTRE de départ.
-      // TODO (Partie 1) : remplacez ces valeurs par les couleurs et les polices de votre univers.
+      
       colors: {
         brand: {
-          dark: "#fb9518ed",
-          light: "#E5E7EB",
+          
+           DEFAULT: "hsl(63, 96%, 59%)",
+             dark: "#fb9518",
+            light: "#E5E7EB",
+
         },
         ink: "#14171D",
         muted: "#545B68",
@@ -24,6 +26,7 @@ module.exports = {
       borderRadius: {
         card: "50px",
       },
+      
     },
   },
   plugins: [],

@@ -45,7 +45,7 @@ let teamList = [];
 
             <!-- LE BOUTON AJOUTER À L'ÉQUIPE -->
             <button type="button" class="btn-equipe w-full py-2.5 rounded-xl border-2 border-gray-800 font-bold text-gray-800 transition hover:bg-gray-900 hover:text-white ${isInTeam ? 'active bg-blue-600 text-white' : ''}">
-                ${isInTeam ? "Retirer de l'équipe" : "ajouter à l'équipe"}
+                ${isInTeam ?  "Retirer de favoris" : "Ajouter au favoris❤️"}
             </button>
         `;
 
@@ -145,7 +145,7 @@ function searchCreatures() {
         });
     });
 };
-searchCreatures();
+ searchCreatures();
 
 
 // -------------------------------------------------------------

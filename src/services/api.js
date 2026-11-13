@@ -1,7 +1,10 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
+
+
 // recupérer la liste des pokémons
+
 export async function getPokemonList(offset) {
-  const response = await fetch(`${BASE_URL}pokemon?limit=20&offset=20`)
+  const response = await fetch(`${BASE_URL}pokemon?limit=20&offset=${offset}`)
 
   if (!response.ok) {
     throw new Error("Erreur leurs de chargement des Pokémon")
@@ -19,8 +22,10 @@ export async function PokemonResultat(name) {
     throw new Error("Pokémon introuvable")
   }
   const data = await response.json();
-  const creature={
-    id : data.id,
+
+  return{
+  
+    id :"#"  + data.id,
     name:data.name,
     type:data.types.map(t=>t.type.name),
     image:data.sprites.other["official-artwork"].front_default,
@@ -30,20 +35,20 @@ export async function PokemonResultat(name) {
       defence: data.stats[2].base_stat,
     },
     level:"-",
-    description: data.description 
+    description:""
      
-  };
-  return creature ;
+  }
 }
+
 
 // charger les pokémons avec leurs détails
 
 export async function chargerCreatures(offset) {
   const data =await getPokemonList(offset)
 
-const result= data.results.map(creature=>PokemonResultat(creature.name));
-const creature = await Promise.all(result);
-return creature;
+const result= data.results.map(pokemon => PokemonResultat (pokemon.name));
+return await Promise.all(result);
+
 }
 
-
+   
