@@ -14,7 +14,9 @@ let teamList = [];
 // -------------------------------------------------------------
 //  AFFICHAGE DES CRÉATURES
 // -------------------------------------------------------------
-export function afficherCreatures(liste) {
+
+ export function afficherCreatures(liste) {
+
     if (!grid) return;
     grid.innerHTML = ""
 
