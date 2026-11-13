@@ -1,15 +1,14 @@
+
 import { chargerCreatures } from "./services/api.js";
 import { mettreAjourListe } from "../script.js";
 
-
-let offset = 0;
+let offset = 20;
 let limit = 20;
-let creaturesList=[];
+let creaturesList = [];
 
+// Premier chargement
 async function chargerPokemons() {
-
     try {
-
         const creatures = await chargerCreatures(offset);
 
         creaturesList = [...creaturesList, ...creatures];
@@ -19,30 +18,32 @@ async function chargerPokemons() {
         offset += limit;
 
     } catch (error) {
-
         console.log("Erreur :", error.message);
     }
 }
 
-//charger plus de pokémon
-
+// Charger plus de Pokémon
 async function chargerPlus() {
     try {
-        offset += limit;
         const creatures = await chargerCreatures(offset);
-        creaturesList =[...creaturesList,...creatures];
+
+        creaturesList = [...creaturesList, ...creatures];
+
         mettreAjourListe(creaturesList);
-      
+
+        offset += limit;
+
     } catch (error) {
-        offset -= limit;
         console.log("Erreur :", error.message);
     }
 }
-//button charger plus
+
+// Bouton Charger plus
 const btnChargerPlus = document.getElementById("charger-plus");
+
 if (btnChargerPlus) {
-    btnChargerPlus.addEventListener("click",
-        chargerPlus);
+    btnChargerPlus.addEventListener("click", chargerPlus);
 }
-//Premier chargement
+
+// Lancement
 chargerPokemons();
