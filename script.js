@@ -7,7 +7,7 @@ const teamContainer = document.getElementById('team-container');
 const teamCounter = document.getElementById('team-count');
 
 // Tableaux de données
-let creaturesList = [];
+
 let teamList = [];
 
 
@@ -15,7 +15,7 @@ let teamList = [];
 //  AFFICHAGE DES CRÉATURES
 // -------------------------------------------------------------
 
- export function afficherCreatures(liste) {
+export function afficherCreatures(liste) {
 
     if (!grid) return;
     grid.innerHTML = ""
@@ -25,7 +25,7 @@ let teamList = [];
         carte.className = "creature-card flex flex-col gap-3 rounded-[40px] bg-white p-4 shadow-md transition-all duration-300";
         carte.dataset.id = creature.id;
 
-        const isInTeam = teamList.some(c => c.id === creature.id);
+        const isInFavorite = isFavorite(creature.id);
         if (isInTeam) {
             carte.classList.add('in-team');
         }
@@ -43,11 +43,12 @@ let teamList = [];
                 <span>Niveau : ${creature.level}</span>
             </div>
 
-            <!-- LE BOUTON AJOUTER À L'ÉQUIPE -->
-            <button type="button" class="btn-equipe w-full py-2.5 rounded-xl border-2 border-gray-800 font-bold text-gray-800 transition hover:bg-gray-900 hover:text-white ${isInTeam ? 'active bg-blue-600 text-white' : ''}">
-                ${isInTeam ?  "Retirer de favoris" : "Ajouter au favoris❤️"}
-            </button>
-        `;
+           <button
+    type="button"
+    class="btn-equipe w-full py-2.5 rounded-xl border-2 border-gray-800 font-bold
+    ${isInFavorite ? 'bg-pink-500 text-white' : 'text-gray-800'}">
+    ${isInFavorite ? "❤️ Retirer des favoris" : "🤍 Ajouter aux favoris"}
+</button>`;
 
         carte.addEventListener("click", function (e) {
             if (e.target.closest('.btn-equipe')) return;
@@ -55,6 +56,25 @@ let teamList = [];
         });
 
         grid.appendChild(carte);
+    });
+}
+
+/* Clic sur le bouton Favoris */
+if (grid) {
+
+    grid.addEventListener("click", function (event) {
+
+        const btn = event.target.closest(".btn-equipe");
+
+        if (!btn) return;
+
+        const carte = btn.closest(".creature-card");
+
+        if (!carte) return;
+
+        const creatureId = carte.dataset.id;
+
+        toggleFavorite(creatureId);
     });
 }
 
@@ -93,59 +113,213 @@ if (closeDetail && detail) {
 }
 
 
-// -------------------------------------------------------------
-//  RECHERCHE ET FILTRES
-// -------------------------------------------------------------
 
-function filtrerCreatures() {
-    afficherCreatures(creaturesList);
-    const filterdiv = document.querySelector("#filterButtons")
-    if (!filterdiv) return;
+/* =========================================
+   FILTRAGE, RECHERCHE ET FAVORIS
+========================================= */
 
-    filterdiv.addEventListener('click', (event) => {
-        const btn = event.target.closest(".chip")
-        if (!btn) return;
-        const nametype = btn.textContent.toLowerCase().trim()
-        if (nametype === 'all') {
-            afficherCreatures(creaturesList);
-            return
-        }
-        else {
-            const resultats = creaturesList.filter((c) => c.type.toLowerCase().trim() === nametype)
-            afficherCreatures(resultats);
-        }
-    });
+// Liste des Pokémon chargés depuis l'API
+export let creaturesList =[];
+
+// Type sélectionné
+let selectedType = "all";
+
+// Texte recherché
+let searchValue = "";
+
+// Afficher seulement les favoris ?
+let favoritesOnly = false;
+
+
+// =========================================
+// 1. LOCALSTORAGE : FAVORIS
+// =========================================
+
+// Récupérer les favoris sauvegardés
+let favorites = JSON.parse(
+    localStorage.getItem("pokemon-favorites") || "[]"
+);
+
+
+// Vérifier si un Pokémon est favori
+function isFavorite(creatureId) {
+    return favorites.includes(String(creatureId));
 }
-filtrerCreatures();
 
-function searchCreatures() {
-    const searchInput = document.getElementById("search");
-    if (!searchInput) return;
+
+// Ajouter ou retirer un favori
+function toggleFavorite(creatureId) {
+
+    creatureId = String(creatureId);
+
+    if (isFavorite(creatureId)) {
+
+        // Retirer des favoris
+        favorites = favorites.filter(
+            id => id !== creatureId
+        );
+
+    } else {
+
+        // Ajouter aux favoris
+        favorites.push(creatureId);
+    }
+
+    // Sauvegarder dans LocalStorage
+    localStorage.setItem(
+        "pokemon-favorites",
+        JSON.stringify(favorites)
+    );
+
+    // Actualiser l'affichage
+    appliquerFiltres();
+}
+
+
+// =========================================
+// 2. RECEVOIR LA LISTE DEPUIS MAIN.JS
+// =========================================
+
+export function mettreAjourListe(liste) {
+
+    creaturesList = liste;
+
+    appliquerFiltres();
+}
+
+
+// =========================================
+// 3. FILTRAGE + RECHERCHE
+// =========================================
+
+function appliquerFiltres() {
+
+    let resultat = creaturesList;
+
+    // Filtrer par type
+    if (selectedType !== "all") {
+
+        resultat = resultat.filter(creature =>
+            creature.type.some(
+                type => type.toLowerCase() === selectedType
+            )
+        );
+    }
+
+    // Filtrer par nom
+    if (searchValue !== "") {
+
+        resultat = resultat.filter(creature =>
+            creature.name.toLowerCase().includes(searchValue)
+        );
+    }
+
+    // Filtrer par favoris
+    if (favoritesOnly) {
+
+        resultat = resultat.filter(creature =>
+            isFavorite(creature.id)
+        );
+    }
+
+    // Afficher les résultats
+    afficherCreatures(resultat);
+}
+
+
+// =========================================
+// 4. RECHERCHE PAR NOM
+// =========================================
+
+const searchInput = document.getElementById("search");
+
+if (searchInput) {
 
     searchInput.addEventListener("input", function () {
-        const searchValue = searchInput.value.toLowerCase().trim();
-        let filteredCreatures = [];
 
-        if (searchValue !== "") {
-            creaturesList.forEach((c) => {
-                if (c.name.toLowerCase().trim().includes(searchValue))
-                    filteredCreatures.push(c)
-            })
-            afficherCreatures(filteredCreatures)
-        } else {
-            afficherCreatures(creaturesList);
+        searchValue = searchInput.value.toLowerCase().trim();
+
+        appliquerFiltres();
+    });
+}
+
+
+// =========================================
+// 5. FILTRAGE PAR TYPE
+// =========================================
+
+const filterButtons = document.getElementById("filterButtons");
+
+if (filterButtons) {
+
+    filterButtons.addEventListener("click", function (event) {
+
+        const button = event.target.closest(".chip");
+
+        if (!button) return;
+
+        selectedType = button.dataset.type.toLowerCase();
+
+        // Modifier le bouton actif
+        filterButtons.querySelectorAll(".chip").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        appliquerFiltres();
+    });
+}
+
+
+// =========================================
+// 6. BOUTON FAVORIS
+// =========================================
+
+const favoritesButton = document.getElementById("filter-favorites");
+
+if (favoritesButton) {
+
+    favoritesButton.addEventListener("click", function () {
+
+        favoritesOnly = !favoritesOnly;
+
+        favoritesButton.classList.toggle("active");
+
+        appliquerFiltres();
+    });
+}
+
+
+// =========================================
+// 7. BOUTON EFFACER
+// =========================================
+
+const clearButton = document.getElementById("clear-search");
+
+if (clearButton) {
+
+    clearButton.addEventListener("click", function () {
+
+        searchValue = "";
+        selectedType = "all";
+        favoritesOnly = false;
+
+        if (searchInput) {
+            searchInput.value = "";
         }
 
-        const filterButtons = document.querySelectorAll('#filterButtons button');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
+        if (favoritesButton) {
+            favoritesButton.classList.remove("active");
+        }
+
+        filterButtons.querySelectorAll(".chip").forEach(btn => {
+            btn.classList.remove("active");
         });
+
+        appliquerFiltres();
     });
-};
- searchCreatures();
+}
 
 
 // -------------------------------------------------------------
@@ -344,7 +518,7 @@ if (teamContainer) {
 
         teamList = teamList.filter(c => c.id !== creatureId);
 
-        const cardInGrid = creaturesContainer.querySelector(`[data-id="${creatureId}"]`);
+        const cardInGrid = creaturesContainer.querySelector(`[data-id= "${creatureId}"]`);
         if (cardInGrid) {
             cardInGrid.classList.remove('in-team');
             const btn = cardInGrid.querySelector('.btn-equipe');
@@ -377,19 +551,19 @@ function renderTeam() {
             filledSlot.dataset.id = creature.id;
 
             filledSlot.innerHTML = `
-                <span class="absolute top-1 left-2 text-[10px] font-bold text-gray-400">#0${i + 1}</span>
+            < span class="absolute top-1 left-2 text-[10px] font-bold text-gray-400" >#0${ i + 1 }</span >
                 <img src="${creature.image}" alt="${creature.name}" class="w-12 h-12 object-cover rounded-lg mt-2">
-                <span class="text-xs font-bold text-gray-800 truncate w-full text-center">${creature.name}</span>
-                <span class="text-[10px] bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">Retirer</span>
-            `;
-            teamContainer.appendChild(filledSlot);
+                    <span class="text-xs font-bold text-gray-800 truncate w-full text-center">${creature.name}</span>
+                    <span class="text-[10px] bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">Retirer</span>
+                    `;
+                    teamContainer.appendChild(filledSlot);
         } else {
             const emptySlot = document.createElement('div');
-            emptySlot.className = "team-slot flex flex-col items-center justify-center h-36 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold bg-gray-50/50";
-            emptySlot.innerHTML = `<span class="text-gray-300 font-bold mb-1">0${i + 1}</span> Emplacement`;
-            teamContainer.appendChild(emptySlot);
+                    emptySlot.className = "team-slot flex flex-col items-center justify-center h-36 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold bg-gray-50/50";
+                    emptySlot.innerHTML = `<span class="text-gray-300 font-bold mb-1">0${i + 1}</span> Emplacement`;
+                    teamContainer.appendChild(emptySlot);
         }
     }
 }
 
-renderTeam();
+                    renderTeam();

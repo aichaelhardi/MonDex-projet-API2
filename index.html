@@ -45,16 +45,16 @@
 
   
  <div id="filterButtons" role="group" aria-label="Filtrer par type" class="flex flex-raw gap-3 p-4  overflow-x-auto">
-  <button type="button" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20260428/pngtree-vibrant-digital-wave-with-glowing-blue-and-purple-lines-particles-on-image_21759545.webp')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">All</button>
-  <button type="button" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp_ECPM-l1lkIiqILQYqdw9ioSOw-DY9YhODcnc4vFpg&s=10')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Feu</button>
-  <button type="button" style="background-image: url('https://i.pinimg.com/736x/d3/11/60/d31160511be9f63546fc2684a9a60230.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Dragon</button>
-  <button type="button" style="background-image: url('https://img.magnific.com/photos-gratuite/vague-eau-gouttes_1160-169.jpg?semt=ais_hybrid&w=740&q=80')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Eau</button>
-  <button type="button" style="background-image: url('https://img.magnific.com/premium-psd/thunderous-sunset-landscape_538547-10581.jpg?semt=ais_hybrid&w=740&q=80')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Psy</button>
-  <button type="button" style="background-image: url('https://t4.ftcdn.net/jpg/08/39/34/03/360_F_839340361_BXDv39guFXpjJ6z44HFIHmS4qV9loY3c.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Electrik</button>
-  <button type="button" style="background-image: url('https://miro.medium.com/v2/resize:fit:1400/0*0sbQp6wYl00j34O1')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Normal</button>
-   <button type="button" style="background-image: url('https://i.pinimg.com/736x/e6/7b/63/e67b63467f8f3e17dc46577132a0e85a.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">poison</button>
-    <button type="button" style="background-image: url('https://i.pinimg.com/736x/2b/b3/af/2bb3af6e928b23867ec4e3877a99644a.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">ground</button>
-     <button type="button" style="background-image: url('https://i.pinimg.com/736x/78/d7/80/78d780a750b2630493ddf610b9d4b87f.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">fairy</button>
+  <button type="button" data-type="all" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20260428/pngtree-vibrant-digital-wave-with-glowing-blue-and-purple-lines-particles-on-image_21759545.webp')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">All</button>
+  <button type="button" data-type="fire" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp_ECPM-l1lkIiqILQYqdw9ioSOw-DY9YhODcnc4vFpg&s=10')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Feu</button>
+  <button type="button" data-type="dragon" style="background-image: url('https://i.pinimg.com/736x/d3/11/60/d31160511be9f63546fc2684a9a60230.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Dragon</button>
+  <button type="button" data-type="water" style="background-image: url('https://img.magnific.com/photos-gratuite/vague-eau-gouttes_1160-169.jpg?semt=ais_hybrid&w=740&q=80')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Eau</button>
+  <button type="button" data-type="psychic" style="background-image: url('https://img.magnific.com/premium-psd/thunderous-sunset-landscape_538547-10581.jpg?semt=ais_hybrid&w=740&q=80')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Psy</button>
+  <button type="button" data-type="electric"style="background-image: url('https://t4.ftcdn.net/jpg/08/39/34/03/360_F_839340361_BXDv39guFXpjJ6z44HFIHmS4qV9loY3c.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Electrik</button>
+  <button type="button" data-type="normal"style="background-image: url('https://miro.medium.com/v2/resize:fit:1400/0*0sbQp6wYl00j34O1')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Normal</button>
+  <button type="button" data-type="poison"style="background-image: url('https://i.pinimg.com/736x/e6/7b/63/e67b63467f8f3e17dc46577132a0e85a.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">poison</button>
+  <button type="button" data-type="grass"style="background-image: url('https://i.pinimg.com/736x/2b/b3/af/2bb3af6e928b23867ec4e3877a99644a.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">Grass</button>
+  <button type="button" data-type="fairy"style="background-image: url('https://i.pinimg.com/736x/78/d7/80/78d780a750b2630493ddf610b9d4b87f.jpg')" class="chip px-6 py-3 rounded-xl bg-cover bg-center text-white font-bold text-sm shadow-md">fairy</button>
 </div>
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8 lg:items-start">
     
@@ -86,16 +86,47 @@
           <button type="button" class="hidden">Ajouter à l'équipe</button>
         </section>
 
+<!-- Barre de recherche -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+    <h1 class="text-3xl font-extrabold">
+        Trouver une créature
+    </h1>
+
+    <label class="flex w-full max-w-md flex-col gap-1 text-sm font-bold">
+        Rechercher par nom
+
+        <input
+            id="search"
+            type="search"
+            placeholder="Recherche par nom..."
+            class="field font-normal border rounded-lg p-2"
+        />
+    </label>
+
+    <button
+        id="clear-search"
+        type="button"
+        class="rounded-xl bg-gray-800 px-4 py-2 text-white"
+    >
+        Effacer
+    </button>
+
+    <button
+        id="filter-favorites"
+        type="button"
+        class="rounded-xl bg-pink-500 px-4 py-2 text-white"
+    >
+        ❤️ Favoris
+    </button>
+</div>
+
+
         <!-- ===================== MON ÉQUIPE (INCOMPLÈTE) ===================== -->
         <section id="team" aria-label="Mon équipe" class="flex flex-col gap-4 rounded-card bg-white p-6 shadow-md">
   <!-- En-tête avec le titre et le compteur dynamique -->
-  <div class="flex items-center justify-between">
-    <h2 class="font-display text-2xl font-extrabold">Favoris❤️</h2>
-    <span id="team-counter" class="text-sm font-bold text-muted bg-gray-100 px-3 py-1 rounded-full"></span>
-  </div>
+  
 
-  <p class="text-xs text-muted">Sélectionnez jusqu'à 6 créatures pour constituer votre équipe de combat.</p>
-
+  
   <!-- Grille des 6 emplacements -->
   <div id="team-container" class="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-6 gap-4">
     <!-- Les 6 emplacements vides par défaut -->
@@ -106,7 +137,7 @@
     <div class="team-slot flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold">Emplacement vide</div>
     <div class="team-slot flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl text-gray-400 text-xs font-semibold">Emplacement vide</div>
   </div>
-</section>
+     </section>
 
     <button id="charger-plus" class=" bg-cover bg-[#22C55E] text-xl text-sm rounded-xl border-2 ">charger plus</button>
 
@@ -175,8 +206,6 @@
 
 
   
-  <script type="module" src="./script.js" defer></script>
   <script type="module" src="./src/main.js"></script>
-  <script type="module" src="./src/services/api.js"></script>
 </body>
 </html>

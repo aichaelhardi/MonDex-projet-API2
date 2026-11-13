@@ -1,29 +1,40 @@
-import { chargerCreatures, getPokemonList, PokemonResultat } from "./services/api.js";
-import { afficherCreatures } from "../script.js";
-let creaturesList = [];
-let offset = 20;
+import { chargerCreatures } from "./services/api.js";
+import { mettreAjourListe } from "../script.js";
+
+
+let offset = 0;
 let limit = 20;
+let creaturesList=[];
+
 async function chargerPokemons() {
+
     try {
+
         const creatures = await chargerCreatures(offset);
+
         creaturesList = [...creaturesList, ...creatures];
-        afficherCreatures(creaturesList);
+
+        mettreAjourListe(creaturesList);
+
+        offset += limit;
+
     } catch (error) {
-        console.log("Erreur :", error.message)
+
+        console.log("Erreur :", error.message);
     }
 }
+
 //charger plus de pokémon
 
 async function chargerPlus() {
     try {
         offset += limit;
-        const response = await getPokemonList(offset);
-        const details = await Promise.all(response.results.map(pokemon => PokemonResultat(pokemon.name)));
-       
-        
-        creaturesList = [...creaturesList, ...details];
-        afficherCreatures(creaturesList);
+        const creatures = await chargerCreatures(offset);
+        creaturesList =[...creaturesList,...creatures];
+        mettreAjourListe(creaturesList);
+      
     } catch (error) {
+        offset -= limit;
         console.log("Erreur :", error.message);
     }
 }
